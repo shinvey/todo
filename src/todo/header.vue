@@ -4,9 +4,8 @@
   </header>
 </template>
 
-<style lang="stylus" scoped>
-  body {
-    color: red;
-  }
+<style scope>
+
 </style>
+
 

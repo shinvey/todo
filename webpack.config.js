@@ -47,14 +47,14 @@ const config = {
         ]
       },
       {
-        test: '/\.styl(us)?$/',
+        test: /\.styl/,
         use: [
-          'vue-style-loader',
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true,
+              sourceMap: true
             }
           },
           'stylus-loader'
