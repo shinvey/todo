@@ -1,11 +1,11 @@
 <template>
-  <header class="main-header">
-    <h1>JTodo</h1>
-  </header>
+  <h2>任务清单</h2>
 </template>
+<script>
+  export default {
 
+  }
+</script>
 <style scope>
 
 </style>
-
-

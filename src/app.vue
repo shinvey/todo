@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div id="cover"></div>
-    <Header></Header>
-    <todo></todo>
+    <div class="app-wper">
+      <Header></Header>
+      <Todo></Todo>
+      <Item></Item>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -11,17 +13,18 @@
 import Header from './todo/header.vue'
 import Footer from './todo/footer.jsx'
 import Todo from './todo/todo.vue'
+import Item from './todo/item.vue'
 
 export default {
   components: {
     Header,
     Footer,
-    Todo
+    Todo,
+    Item
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  #app 
-    background #ccc
+ 
 </style>
