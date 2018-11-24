@@ -10,4 +10,4 @@ steps:
 
 trigger:
     branch:
-    - release/*
+    - release/1.0
