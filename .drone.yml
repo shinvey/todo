@@ -10,4 +10,4 @@ steps:
 
 trigger:
     branch:
-    - release/*
+    - release/* # 无法使用“release/*”模式
