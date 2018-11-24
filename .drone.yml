@@ -1,0 +1,13 @@
+kind: pipeline
+name: release
+
+steps:
+  - name: build
+    image: node
+    commands:
+      - npm i
+      - npm run build
+
+trigger:
+  branch:
+    - release/*
