@@ -8,6 +8,6 @@ steps:
       - npm i
       - npm run build
 
-trigger:
-  branch:
-    - release/*
+#trigger:
+#  branch:
+#    - release/*
