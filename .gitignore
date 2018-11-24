@@ -2,6 +2,8 @@
 Thumbs.db
 db.json
 *.log
+.idea/
+dist/
 node_modules/
 .deploy*/
 package-lock.json
