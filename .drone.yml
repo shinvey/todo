@@ -1,5 +1,5 @@
 kind: pipeline
-name: release
+name: releasing for tester
 
 steps:
   - name: build
@@ -9,5 +9,6 @@ steps:
       - npm run build
 
 trigger:
-  branch:
+    branch:
+    - develop
     - release/*
