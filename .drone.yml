@@ -2,11 +2,12 @@ kind: pipeline
 name: releasing 1.0 for tester
 
 steps:
-#- name: build
-#  image: node
-#  commands:
-#  - npm i
-#  - npm run build
+- name: build
+  image: node
+  commands:
+  - npm i
+  - npm run build
+
 - name: deploy
   image: lucap/drone-netlify
   settings:
