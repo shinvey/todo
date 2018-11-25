@@ -14,7 +14,7 @@ steps:
     token: # ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
       from_secret: netlify_token
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
-    # site_name: vigilant-turing-b94891
+    site_name: staging
     path: ./dist
     environment: staging
 
