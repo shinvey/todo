@@ -19,7 +19,7 @@ steps:
     # get this from official site in your Site settings dashboard
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
     # define your own Netlify subdomain
-    site_name: staging-todo-shinvey
+    # site_name: staging-todo-shinvey
     path: ./dist
 
 trigger:
