@@ -10,5 +10,4 @@ steps:
 
 trigger:
     branch:
-    # 无法使用“release/*”模式
-    - release/1.0
+    - release/1.0 # Can not use wildcard as "release/*"
