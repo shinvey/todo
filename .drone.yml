@@ -8,11 +8,12 @@ steps:
 #    - npm i
 #    - npm run build
 
+#netlify
   - name: deploy
-    image: lucap/drone-netlify
-    environment:
-      TOKEN: ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
-#    secrets: [ netlify_token ]
+  image: lucap/drone-netlify
+  settings:
+    token: ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
+    #secrets: [ netlify_token ]
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
     site_name: vigilant-turing-b94891
     path: ./dist
