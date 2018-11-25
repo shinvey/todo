@@ -11,12 +11,16 @@ steps:
 - name: deploy
   image: lucap/drone-netlify
   settings:
-    token: # ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
+    # get this from official site in your Personal access tokens,
+    # it looks like ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
+    # then save it into Drone secrets
+    token:
       from_secret: netlify_token
+    # get this from official site in your Site settings dashboard
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
+    # define your own Netlify subdomain
     site_name: staging-todo-shinvey
     path: ./dist
-    environment: staging
 
 trigger:
     branch:
