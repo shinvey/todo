@@ -10,4 +10,5 @@ steps:
 
 trigger:
     branch:
-    - release/1.0 # 无法使用“release/*”模式
+    # 无法使用“release/*”模式
+    - release/1.0
