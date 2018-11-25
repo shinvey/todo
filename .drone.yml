@@ -2,11 +2,31 @@ kind: pipeline
 name: releasing 1.0 for tester
 
 steps:
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  volumes:
+  - name: cache
+    path: /tmp/cache
+  settings:
+    restore: true
+    mount:
+      - ./node_modules
+
 - name: build
   image: node
   commands:
   - npm install
   - npm run build
+
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  volumes:
+  - name: cache
+    path: /tmp/cache
+  settings:
+    rebuild: true
+    mount:
+    - ./node_modules
 
 - name: deploy
   image: lucap/drone-netlify
@@ -21,6 +41,11 @@ steps:
     # define your own Netlify subdomain
     # site_name: staging-todo-shinvey
     path: ./dist
+
+volumes:
+- name: cache
+  host:
+    path: /home/shinvey/docker/volume/cache
 
 trigger:
     branch:
