@@ -10,7 +10,7 @@ steps:
 
   - name: deploy
     image: lucap/drone-netlify
-    # token: ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
+    token: ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
     environment:
       netlify_token:
         from_secret: netlify_token
