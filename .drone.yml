@@ -5,24 +5,22 @@ steps:
 - name: restore-cache
   image: drillster/drone-volume-cache
   volumes:
-  - name: cache
-    path: /tmp/cache
+    - /tmp/cache:/cache
   settings:
     restore: true
     mount:
       - ./node_modules
 
-- name: build
-  image: node
-  commands:
-  - npm install
-  - npm run build
+#- name: build
+#  image: node
+#  commands:
+#  - npm install
+#  - npm run build
 
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
-  - name: cache
-    path: /tmp/cache
+    - /tmp/cache:/cache
   settings:
     rebuild: true
     mount:
