@@ -1,5 +1,5 @@
 kind: pipeline
-name: releasing for tester
+name: releasing 1.0 for tester
 
 steps:
   - name: build
@@ -10,4 +10,4 @@ steps:
 
 trigger:
     branch:
-    - release/* # 无法使用“release/*”模式
+    - release/1.0 # 无法使用“release/*”模式
