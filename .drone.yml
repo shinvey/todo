@@ -16,6 +16,7 @@ steps:
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
     # site_name: vigilant-turing-b94891
     path: ./dist
+    environment: staging
 
 trigger:
     branch:

@@ -19,8 +19,8 @@ export default {
     }
     return (
       <div id="footer" style={footerStyle}>
-        <span>Hey shinvey!</span>
-        <span>Written by {this.author}</span>
+        <p>Hey Shinvey, you did it!</p>
+        <p>Written by {this.author}</p>
       </div>
     )
   }
