@@ -10,8 +10,8 @@ steps:
   settings:
     restore: true
     mount:
-    - ./node_modules
-    - ./yarn.lock
+      - ./node_modules
+      - ./yarn.lock
 
 - name: build
   image: kkarczmarczyk/node-yarn
@@ -28,8 +28,8 @@ steps:
   settings:
     rebuild: true
     mount:
-    - ./node_modules
-    - ./yarn.lock
+      - ./node_modules
+      - ./yarn.lock
 
 - name: deploy
   image: lucap/drone-netlify
