@@ -3,7 +3,6 @@ name: releasing 1.0 for tester
 
 steps:
 - name: restore-cache
-  detach: true
   image: drillster/drone-volume-cache
   volumes:
   - name: cache
@@ -22,7 +21,6 @@ steps:
   - yarn run build
 
 - name: rebuild-cache
-  detach: true
   image: drillster/drone-volume-cache
   volumes:
   - name: cache
