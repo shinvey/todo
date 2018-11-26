@@ -2,6 +2,7 @@ kind: pipeline
 name: releasing 1.0 for tester
 
 steps:
+  # https://github.com/Drillster/drone-volume-cache/blob/master/DOCS.md
 - name: restore-cache
   image: drillster/drone-volume-cache
   volumes:
@@ -10,19 +11,20 @@ steps:
   settings:
     restore: true
     mount:
-      - ./node_modules
+    - ./node_modules
+
+#- name: build
+#  image: node
+#  commands:
+#  - npm config set registry "https://registry.npm.taobao.org"
+#  - npm install lodash
 
 - name: build
   image: node
   commands:
   - npm config set registry "https://registry.npm.taobao.org"
-  - npm install lodash
-
-#- name: build
-#  image: node
-#  commands:
-#  - npm install
-#  - npm run build
+  - npm install
+  - npm run build
 
 - name: rebuild-cache
   image: drillster/drone-volume-cache
@@ -32,7 +34,7 @@ steps:
   settings:
     rebuild: true
     mount:
-      - ./node_modules
+    - ./node_modules
 
 - name: deploy
   image: lucap/drone-netlify
@@ -54,5 +56,5 @@ volumes:
     path: /home/shinvey/docker/volume/cache
 
 trigger:
-    branch:
-    - release/1.0 # Can not use wildcard as "release/*"
+  branch:
+  - release/1.0 # Can not use wildcard as "release/*"
