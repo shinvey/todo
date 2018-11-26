@@ -11,20 +11,14 @@ steps:
     restore: true
     mount:
       - ./node_modules
-      - ./package-lock.json
-
-#- name: build
-#  image: node
-#  commands:
-#  - npm config set registry "https://registry.npm.taobao.org"
-#  - npm install lodash
+      - ./yarn.lock
 
 - name: build
-  image: node
+  image: kkarczmarczyk/node-yarn
   commands:
-  - npm config set registry "https://registry.npm.taobao.org"
-  - npm install
-  - npm run build
+  - yarn config set registry http://registry.npm.taobao.org/
+  - yarn install
+  - yarn run build
 
 - name: rebuild-cache
   image: drillster/drone-volume-cache
@@ -35,7 +29,7 @@ steps:
     rebuild: true
     mount:
       - ./node_modules
-      - ./package-lock.json
+      - ./yarn.lock
 
 - name: deploy
   image: lucap/drone-netlify
