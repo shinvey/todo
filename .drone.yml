@@ -42,4 +42,5 @@ pipeline:
     # site_name: staging-todo-shinvey
     path: dist
 
+# 测试
 # branches: release/*
