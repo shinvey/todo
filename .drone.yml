@@ -1,55 +1,46 @@
-kind: pipeline
-name: releasing 1.0 for tester
+# releasing 1.0 for tester
 
-steps:
-- name: restore-cache
-  image: drillster/drone-volume-cache
-  volumes:
-  - name: cache
-    path: /cache
-  settings:
+matrix:
+  CACHE:
+    - /home/shinvey/devops/cache
+
+pipeline:
+  restore_cache:
+    image: drillster/drone-volume-cache
     restore: true
     mount:
-      - ./node_modules
-      - ./yarn.lock
+      - node_modules
+      - yarn.lock
+    volumes:
+      - ${CACHE}:/cache
 
-- name: build
-  image: kkarczmarczyk/node-yarn
-  commands:
-  - yarn config set registry http://registry.npm.taobao.org/
-  - yarn install
-  - yarn run build
+  build:
+    image: kkarczmarczyk/node-yarn
+    commands:
+      - yarn config set registry http://registry.npm.taobao.org/
+      - yarn install
+      - yarn run build
 
-- name: rebuild-cache
-  image: drillster/drone-volume-cache
-  volumes:
-  - name: cache
-    path: /cache
-  settings:
+  rebuild_cache:
+    image: drillster/drone-volume-cache
     rebuild: true
     mount:
-      - ./node_modules
-      - ./yarn.lock
+      - node_modules
+      - yarn.lock
+    volumes:
+      - ${CACHE}:/cache
 
-- name: deploy
-  image: lucap/drone-netlify
-  settings:
+  deploy:
+    image: lucap/drone-netlify
     # get this from official site in your Personal access tokens,
-    # it looks like ff1b452e2e2511c85b975dcb3d6b7c3f0c3644e24a63bb39b127c780a5361c75
+    # it looks like 5982e8055741e2ea5d6855f503f628cfab904483bca704b1cffd849fe6cbb0b7
     # then save it into Drone secrets
-    token:
-      from_secret: netlify_token
+    secrets: [ netlify_token ]
     # get this from official site in your Site settings dashboard
     site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
     # define your own Netlify subdomain
     # site_name: staging-todo-shinvey
-    path: ./dist
+    path: dist
 
-volumes:
-- name: cache
-  host:
-    path: /home/shinvey/docker/volume/cache
-
-trigger:
-    branch:
-    - release/1.0 # Can not use wildcard as "release/*"
+branches:
+  - release/1.0
