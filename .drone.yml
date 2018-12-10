@@ -22,7 +22,7 @@ pipeline:
 #    password: "${PASSWORD}"
     secrets:
       - source: ssh_shinvey_pass
-        target: password
+        target: SFTP_CACHE_PASSWORD
     path: ${CACHE}
     restore: true
     mount:
