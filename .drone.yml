@@ -17,12 +17,12 @@ pipeline:
       - node_modules
       - yarn.lock
 
-#  build:
-#    image: kkarczmarczyk/node-yarn
-#    commands:
-#      - yarn config set registry http://registry.npm.taobao.org/
-#      - yarn install
-#      - yarn run build
+  build:
+    image: kkarczmarczyk/node-yarn
+    commands:
+      - yarn config set registry http://registry.npm.taobao.org/
+      - yarn install
+      - yarn run build
 
   rebuild_cache:
     image: appleboy/drone-sftp-cache
