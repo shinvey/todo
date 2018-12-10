@@ -1,0 +1,53 @@
+# releasing 1.0 for tester
+# 缓存方案 https://discourse.drone.io/t/how-do-i-cache-node-modules-between-builds/1946
+# sftp plugin 文档不全，但可以查看入参变量 https://github.com/appleboy/drone-sftp-cache/blob/master/main.go
+
+pipeline:
+  restore_cache:
+    image: appleboy/drone-sftp-cache
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
+    restore: true
+    mount:
+      - node_modules
+      - yarn.lock
+
+  build:
+    image: kkarczmarczyk/node-yarn
+    commands:
+      - yarn config set registry http://registry.npm.taobao.org/
+      - yarn install
+      - yarn run build
+
+  rebuild_cache:
+    image: appleboy/drone-sftp-cache
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
+    rebuild: true
+    mount:
+      - node_modules
+      - yarn.lock
+
+  deploy:
+    image: lucap/drone-netlify
+    # get this from official site in your Personal access tokens,
+    # it looks like 5982e8055741e2ea5d6855f503f628cfab904483bca704b1cffd849fe6cbb0b7
+    # then save it into Drone secrets
+    secrets: [ netlify_token ]
+    # get this from official site in your Site settings dashboard
+    site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
+    # define your own Netlify subdomain
+    # site_name: staging-todo-shinvey
+    path: dist
+
+branches: release/1.0
