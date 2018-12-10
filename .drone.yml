@@ -1,29 +1,17 @@
 # releasing 1.0 for tester
 # 缓存方案 https://discourse.drone.io/t/how-do-i-cache-node-modules-between-builds/1946
-
-matrix:
-  CACHE:
-    - /home/shinvey/devops/cache
-  SERVER_IP:
-    - 192.168.1.111
-  SSH_PORT:
-    - 22
-  USERNAME:
-    - shinvey
-  PASSWORD:
-    - 0917
+# sftp plugin 文档不全，但可以查看入参变量 https://github.com/appleboy/drone-sftp-cache/blob/master/main.go
 
 pipeline:
   restore_cache:
     image: appleboy/drone-sftp-cache
-    server: ${SERVER_IP}
-    port: ${SSH_PORT}
-    username: ${USERNAME}
-#    password: "${PASSWORD}"
-    secrets:
-      - source: ssh_shinvey_pass
-        target: SFTP_CACHE_PASSWORD
-    path: ${CACHE}
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
     restore: true
     mount:
       - node_modules
@@ -38,11 +26,13 @@ pipeline:
 
   rebuild_cache:
     image: appleboy/drone-sftp-cache
-    server: ${SERVER_IP}
-    port: ${SSH_PORT}
-    username: ${USERNAME}
-    password: "${PASSWORD}"
-    path: ${CACHE}
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
     rebuild: true
     mount:
       - node_modules
