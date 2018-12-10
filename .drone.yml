@@ -11,7 +11,7 @@ matrix:
   USERNAME:
     - shinvey
   PASSWORD:
-    - 0917
+    - "0917"
 
 pipeline:
   restore_cache:
@@ -19,7 +19,7 @@ pipeline:
     server: ${SERVER_IP}
     port: ${SSH_PORT}
     username: ${USERNAME}
-    password: ${PASSWORD}
+    password: "0917"
     path: ${CACHE}
     restore: true
     mount:
