@@ -11,18 +11,18 @@ pipeline:
     port: 22
     username: shinvey
     password: "0917"
-    path: $CACHE
+    path: /tmp/cache
     restore: true
     mount:
       - node_modules
       - yarn.lock
 
-  build:
-    image: kkarczmarczyk/node-yarn
-    commands:
-      - yarn config set registry http://registry.npm.taobao.org/
-      - yarn install
-      - yarn run build
+#  build:
+#    image: kkarczmarczyk/node-yarn
+#    commands:
+#      - yarn config set registry http://registry.npm.taobao.org/
+#      - yarn install
+#      - yarn run build
 
   rebuild_cache:
     image: appleboy/drone-sftp-cache
@@ -30,22 +30,22 @@ pipeline:
     port: 22
     username: shinvey
     password: "0917"
-    path: $CACHE
+    path: /tmp/cache
     rebuild: true
     mount:
       - node_modules
       - yarn.lock
 
-  deploy:
-    image: lucap/drone-netlify
-    # get this from official site in your Personal access tokens,
-    # it looks like 5982e8055741e2ea5d6855f503f628cfab904483bca704b1cffd849fe6cbb0b7
-    # then save it into Drone secrets
-    secrets: [ netlify_token ]
-    # get this from official site in your Site settings dashboard
-    site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
-    # define your own Netlify subdomain
-    # site_name: staging-todo-shinvey
-    path: dist
+#  deploy:
+#    image: lucap/drone-netlify
+#    # get this from official site in your Personal access tokens,
+#    # it looks like 5982e8055741e2ea5d6855f503f628cfab904483bca704b1cffd849fe6cbb0b7
+#    # then save it into Drone secrets
+#    secrets: [ netlify_token ]
+#    # get this from official site in your Site settings dashboard
+#    site_id: 19eb59fb-9324-4261-866e-f5dffe2ebfed
+#    # define your own Netlify subdomain
+#    # site_name: staging-todo-shinvey
+#    path: dist
 
 branches: release/1.0
