@@ -6,16 +6,13 @@ matrix:
 
 pipeline:
   restore_cache:
-    image: appleboy/drone-sftp-cache
-    server: 192.168.1.112
-    port: 22
-    username: shinvey
-    password: 0917
-    path: $CACHE
+    image: drillster/drone-volume-cache
     restore: true
     mount:
       - node_modules
       - yarn.lock
+    volumes:
+      - ${CACHE}:/cache
 
   build:
     image: kkarczmarczyk/node-yarn
@@ -25,16 +22,13 @@ pipeline:
       - yarn run build
 
   rebuild_cache:
-    image: appleboy/drone-sftp-cache
-    server: 192.168.1.112
-    port: 22
-    username: shinvey
-    password: 0917
-    path: $CACHE
+    image: drillster/drone-volume-cache
     rebuild: true
     mount:
       - node_modules
       - yarn.lock
+    volumes:
+      - ${CACHE}:/cache
 
   deploy:
     image: lucap/drone-netlify
