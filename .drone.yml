@@ -11,7 +11,7 @@ matrix:
   USERNAME:
     - shinvey
   PASSWORD:
-    - '0917'
+    - "0917"
 
 pipeline:
   restore_cache:
@@ -19,19 +19,19 @@ pipeline:
     server: ${SERVER_IP}
     port: ${SSH_PORT}
     username: ${USERNAME}
-    password: ${PASSWORD}
+    password: "${PASSWORD}"
     path: ${CACHE}
     restore: true
     mount:
       - node_modules
       - yarn.lock
 
-  build:
-    image: kkarczmarczyk/node-yarn
-    commands:
-      - yarn config set registry http://registry.npm.taobao.org/
-      - yarn install
-      - yarn run build
+#  build:
+#    image: kkarczmarczyk/node-yarn
+#    commands:
+#      - yarn config set registry http://registry.npm.taobao.org/
+#      - yarn install
+#      - yarn run build
 
   rebuild_cache:
     image: appleboy/drone-sftp-cache
