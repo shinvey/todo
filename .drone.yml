@@ -19,7 +19,10 @@ pipeline:
     server: ${SERVER_IP}
     port: ${SSH_PORT}
     username: ${USERNAME}
-    password: "${PASSWORD}"
+#    password: "${PASSWORD}"
+    secrets:
+      - source: ssh_shinvey_pass
+        target: password
     path: ${CACHE}
     restore: true
     mount:
