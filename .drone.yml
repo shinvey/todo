@@ -6,6 +6,8 @@ matrix:
     - /home/shinvey/devops/cache
   SERVER_IP:
     - 192.168.1.111
+  SSH_PORT:
+    - 22
   USERNAME:
     - shinvey
   PASSWORD:
@@ -15,7 +17,7 @@ pipeline:
   restore_cache:
     image: appleboy/drone-sftp-cache
     server: ${SERVER_IP}
-#    port: 22
+    port: ${SSH_PORT}
     username: ${USERNAME}
     password: ${PASSWORD}
     path: ${CACHE}
@@ -34,7 +36,7 @@ pipeline:
   rebuild_cache:
     image: appleboy/drone-sftp-cache
     server: ${SERVER_IP}
-#    port: 22
+    port: ${SSH_PORT}
     username: ${USERNAME}
     password: ${PASSWORD}
     path: ${CACHE}
