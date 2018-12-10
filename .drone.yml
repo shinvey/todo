@@ -1,8 +1,8 @@
 # releasing 1.0 for tester
+# 缓存方案 https://discourse.drone.io/t/how-do-i-cache-node-modules-between-builds/1946
 
 matrix:
-  CACHE:
-    - /home/shinvey/devops/cache
+  CACHE: /home/shinvey/devops/cache
 
 pipeline:
   restore_cache:
