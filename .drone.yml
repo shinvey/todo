@@ -7,7 +7,7 @@ matrix:
 pipeline:
   restore_cache:
     image: appleboy/drone-sftp-cache
-    server: 192.168.1.112
+    server: 192.168.1.111
     port: 22
     username: shinvey
     password: 0917
@@ -26,7 +26,7 @@ pipeline:
 
   rebuild_cache:
     image: appleboy/drone-sftp-cache
-    server: 192.168.1.112
+    server: 192.168.1.111
     port: 22
     username: shinvey
     password: 0917
