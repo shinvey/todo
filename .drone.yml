@@ -43,8 +43,8 @@ pipeline:
     hosts: [
       "self.shinvey.com"
     ]
-    source: ./dist
-    target: ~/devops/nginx/www
+    source: ./dist/
+    target: ~/devops/nginx/www/
     secrets: [
       rsync_user,
       rsync_key
