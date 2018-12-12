@@ -45,6 +45,9 @@ pipeline:
     ]
     source: ./dist
     target: ~/devops/nginx/www
-    secrets: [ rsync_key ]
+    secrets: [
+      rsync_user,
+      rsync_key
+    ]
 
 branches: release/1.0
