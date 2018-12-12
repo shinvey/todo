@@ -1,0 +1,53 @@
+# releasing 1.0 for tester
+# 缓存方案 https://discourse.drone.io/t/how-do-i-cache-node-modules-between-builds/1946
+# sftp plugin 文档不全，但可以查看入参变量 https://github.com/appleboy/drone-sftp-cache/blob/master/main.go
+
+pipeline:
+  restore_cache:
+    image: appleboy/drone-sftp-cache
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
+    restore: true
+    mount:
+      - node_modules
+      - yarn.lock
+
+  build:
+    image: kkarczmarczyk/node-yarn
+    commands:
+      - yarn config set registry http://registry.npm.taobao.org/
+      - yarn install
+      - yarn run build
+
+  rebuild_cache:
+    image: appleboy/drone-sftp-cache
+    secrets: [
+      sftp_cache_server,
+      sftp_cache_port,
+      sftp_cache_path,
+      sftp_cache_username,
+      sftp_cache_password
+    ]
+    rebuild: true
+    mount:
+      - node_modules
+      - yarn.lock
+
+  deploy:
+    image: drillster/drone-rsync
+    hosts: [
+      "self.shinvey.com"
+    ]
+    source: ./dist/
+    target: ~/devops/nginx/www/
+    secrets: [
+      rsync_user,
+      rsync_key
+    ]
+
+branches: release/1.0
