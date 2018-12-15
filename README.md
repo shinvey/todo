@@ -1,5 +1,5 @@
 # Todo
-### [Demo](http://www.shinvey.com/)
+### [Demo](http://www.shinvey.com)
 使用webpack构建一个vue的简易开发环境并添加一个Todo demo
 
 下载：
