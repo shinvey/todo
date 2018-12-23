@@ -8,12 +8,12 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'npm help install'
+                sh 'npm --version'
             }
         }
         stage('deploy') {
             steps {
-                sh 'npm config ls'
+                sh 'npm --version'
             }
         }
     }
