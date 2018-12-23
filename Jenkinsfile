@@ -8,7 +8,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'npm --help'
+                sh 'npm help install'
             }
         }
         stage('deploy') {
