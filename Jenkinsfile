@@ -9,7 +9,8 @@ pipeline {
                 GREET = 'Hello'
             }
             steps {
-                echo '${env.GREET} ${en.WHO}!'
+                echo "${env.GREET} ${env.WHO}!"
+                sh 'printenv'
             }
         }
         stage('build') {
