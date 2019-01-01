@@ -9,7 +9,7 @@ pipeline {
                 GREET = 'Hello'
             }
             steps {
-                sh '${env.GREET} ${en.WHO}!'
+                echo '${env.GREET} ${en.WHO}!'
             }
         }
         stage('build') {
