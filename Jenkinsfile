@@ -1,6 +1,17 @@
 pipeline {
-    agent { docker { image 'node:6.3' } }
+    agent { docker { image 'node:9-alpine' } }
+    environment {
+        WHO = 'world'
+    }
     stages {
+        stage('example') {
+            environment {
+                GREET = 'Hello'
+            }
+            steps {
+                sh '${env.GREET} ${en.WHO}!'
+            }
+        }
         stage('build') {
             steps {
                 sh 'npm --version'
