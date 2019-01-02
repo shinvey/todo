@@ -40,6 +40,9 @@ pipeline {
                             "-e PLUGIN_MOUNT=${env.PLUGIN_MOUNT} "
                 }
             }
+            steps {
+                sh 'printenv'
+            }
         }
 //        stage('build') {
 //            steps {
