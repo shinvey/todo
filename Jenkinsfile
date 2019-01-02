@@ -18,7 +18,7 @@ pipeline {
                 GREET = 'Hello'
             }
             steps {
-                echo "${env.GREET} ${env.WHO}!"
+                echo "${env.GREET} ${env.WHO}! The server is ${env.SFTP_CACHE_SERVER}"
                 sh 'printenv'
             }
         }
