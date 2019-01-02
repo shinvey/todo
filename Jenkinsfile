@@ -4,7 +4,7 @@ pipeline {
         string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
     }
     environment {
-        WHO = 'world'
+        who = 'world'
     }
     stages {
         stage('example') {
