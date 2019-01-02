@@ -64,7 +64,7 @@ pipeline {
 //        }
         stage('deploy') {
             steps {
-                sh 'yarn --version'
+                echo 'ok'
             }
         }
     }
