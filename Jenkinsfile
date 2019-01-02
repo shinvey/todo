@@ -25,7 +25,6 @@ pipeline {
 //        }
         stage('restore_cache') {
             environment {
-                PLUGIN_RESTORE = 'true'
                 PLUGIN_MOUNT = '[node_modules, yarn.lock]'
                 // PLUGIN_REBUILD =
             }
@@ -37,7 +36,7 @@ pipeline {
                             "-e SFTP_CACHE_PATH=${env.SFTP_CACHE_PATH} " +
                             "-e SFTP_CACHE_USERNAME=${env.SFTP_CACHE_USERNAME} " +
                             "-e SFTP_CACHE_PASSWORD=${env.SFTP_CACHE_PASSWORD} " +
-                            "-e PLUGIN_RESTORE=${env.PLUGIN_RESTORE} " +
+                            "-e PLUGIN_RESTORE=true " +
                             "-e PLUGIN_MOUNT=${env.PLUGIN_MOUNT} "
                 }
             }
