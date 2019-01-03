@@ -52,7 +52,8 @@ pipeline {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
                     reuseNode true
-                    args  "-v /tmp/jenkins_cache/$JOB_NAME:$WORKSPACE"
+                    args  "-v /tmp/jenkins_cache/$JOB_NAME/node_modules:$WORKSPACE/node_modules " +
+                            "-v /tmp/jenkins_cache/$JOB_NAME/yarn.lock:$WORKSPACE/yarn.lock "
                 }
             }
 
