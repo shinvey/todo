@@ -48,7 +48,7 @@ pipeline {
             agent {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
-                    args  "-v /tmp/jenkins_cache/$JOB_NAME:$WORKSPACE/"
+                    args  "-v /tmp/jenkins_cache/$JOB_NAME:/root"
                 }
             }
 
