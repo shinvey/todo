@@ -1,6 +1,8 @@
 pipeline {
 //    agent { docker { image 'node:9-alpine' } }
-    agent any
+    agent {
+        label 'whatever'
+    }
 //    parameters {
 //        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
 //    }
@@ -48,7 +50,8 @@ pipeline {
             agent {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
-                    args  "-v /tmp/jenkins_cache/$JOB_NAME:/root"
+                    reuseNode true
+                    args  "-v /tmp/jenkins_cache/$JOB_NAME:/$WORKSPACE"
                 }
             }
 
@@ -65,8 +68,16 @@ pipeline {
 //            }
 //        }
         stage('deploy') {
+            agent {
+                docker {
+                    image 'instrumentisto/rsync-ssh'
+                    reuseNode true
+                }
+            }
+
             steps {
-                echo "$WORKSPACE"
+                sh 'rsync --help'
+                sh 'printenv'
             }
         }
     }
