@@ -44,19 +44,20 @@ pipeline {
 //                sh 'printenv'
 //            }
 //        }
-//        stage('build') {
-//            agent {
-//                docker {
-//                    image 'kkarczmarczyk/node-yarn'
-//                }
-//            }
-//
-//            steps {
-//                sh 'yarn config set registry http://registry.npm.taobao.org/'
-//                sh 'yarn install'
-//                sh 'yarn run build'
-//            }
-//        }
+        stage('build') {
+            agent {
+                docker {
+                    image 'kkarczmarczyk/node-yarn'
+                    args  '-v $WORKSPACE:/tmp/jenkins_cache/$JOB_NAME'
+                }
+            }
+
+            steps {
+                sh 'yarn config set registry http://registry.npm.taobao.org/'
+                sh 'yarn install'
+                sh 'yarn run build'
+            }
+        }
 //        stage('test') {
 //            steps {
 //                sh 'npm --version'
@@ -64,7 +65,7 @@ pipeline {
 //        }
         stage('deploy') {
             steps {
-                echo "${env.WORKSPACE} $WORKSPACE"
+                echo '$WORKSPACE'
             }
         }
     }
