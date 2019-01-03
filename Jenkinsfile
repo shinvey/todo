@@ -1,8 +1,9 @@
 pipeline {
 //    agent { docker { image 'node:9-alpine' } }
-    agent {
-        label 'whatever'
-    }
+//    agent {
+//        label 'whatever'
+//    }
+    agent any
 //    parameters {
 //        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
 //    }
