@@ -48,7 +48,7 @@ pipeline {
             agent {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
-                    args  '-v $WORKSPACE:/tmp/jenkins_cache/$JOB_NAME'
+                    args  "-v $WORKSPACE/:/tmp/jenkins_cache/$JOB_NAME/"
                 }
             }
 
@@ -65,7 +65,7 @@ pipeline {
 //        }
         stage('deploy') {
             steps {
-                echo '$WORKSPACE'
+                echo "$WORKSPACE"
             }
         }
     }
