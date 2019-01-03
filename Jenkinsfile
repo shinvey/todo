@@ -52,15 +52,15 @@ pipeline {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
                     reuseNode true
-//                    args  "-v /tmp/jenkins_cache/$JOB_NAME/node_modules:$WORKSPACE/node_modules " +
-//                            "-v /tmp/jenkins_cache/$JOB_NAME/yarn.lock:$WORKSPACE/yarn.lock "
+                    args  "-v /tmp/jenkins_cache/$JOB_NAME/node_modules:$WORKSPACE/node_modules " +
+                            "-v /tmp/jenkins_cache/$JOB_NAME/yarn.lock:$WORKSPACE/yarn.lock "
                 }
             }
 
             steps {
                 sh 'yarn config set registry http://registry.npm.taobao.org/'
                 sh 'yarn install'
-                sh 'yarn run build'
+//                sh 'yarn run build'
                 sh 'printenv'
             }
         }
