@@ -14,15 +14,15 @@ pipeline {
 //        SFTP_CACHE_PASSWORD = credentials('sftp_cache_password')
 //    }
     stages {
-//        stage('example') {
+        stage('example') {
 //            environment {
 //                GREET = 'Hello'
 //            }
-//            steps {
+            steps {
 //                echo "${env.GREET} ${env.WHO}! The server is ${env.SFTP_CACHE_SERVER}"
-//                sh 'printenv'
-//            }
-//        }
+                sh 'printenv'
+            }
+        }
 //        stage('restore_cache') {
 //            environment {
 //                PLUGIN_MOUNT = '[node_modules, yarn.lock]'
