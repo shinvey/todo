@@ -48,7 +48,7 @@ pipeline {
             agent {
                 docker {
                     image 'kkarczmarczyk/node-yarn'
-                    args  "-v $WORKSPACE/:/tmp/jenkins_cache/$JOB_NAME/"
+                    args  "-v /tmp/jenkins_cache/$JOB_NAME:$WORKSPACE/"
                 }
             }
 
@@ -56,6 +56,7 @@ pipeline {
                 sh 'yarn config set registry http://registry.npm.taobao.org/'
                 sh 'yarn install'
                 sh 'yarn run build'
+                sh 'printenv'
             }
         }
 //        stage('test') {
