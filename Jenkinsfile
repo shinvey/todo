@@ -34,7 +34,7 @@ pipeline {
                 }
             }
             environment {
-                OUTPUT_PATH = 'dist'
+                OUTPUT_PATH = 'dist/'
                 NGINX_SERVER = '192.168.1.111'
                 REMOTE_PATH = '~/devops/nginx/www'
             }
