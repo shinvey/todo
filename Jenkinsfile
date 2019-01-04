@@ -42,10 +42,23 @@ pipeline {
                 script {
                     // DOCs http://groovy-lang.org/syntax.html#_maps
                     def NGINX_SERVER = [
-                            master: env.PRODUCTION_SERVER,
-                            release: env.STAGING_SERVER
+                            master: [
+                                    ip: env.PRODUCTION_SERVER,
+                                    remote_path: env.REMOTE_PATH
+                            ],
+                            release: [
+                                    ip: env.STAGING_SERVER,
+                                    remote_path: '~/devops/nginx/stg_www'
+                            ]
                     ]
-                    env.NGINX_SERVER = NGINX_SERVER.containsKey(env.BRANCH_NAME) ? NGINX_SERVER[env.BRANCH_NAME] : env.STAGING_SERVER
+                    if (NGINX_SERVER.containsKey(env.BRANCH_NAME)) {
+                        def SERVER = NGINX_SERVER[env.BRANCH_NAME]
+                        env.NGINX_SERVER = SERVER.ip
+                        env.REMOTE_PATH = SERVER.remote_path
+                    } else {
+                        env.NGINX_SERVER = SERVER.release.ip
+                        env.REMOTE_PATH = SERVER.release.remote_path
+                    }
                 }
                 withCredentials([sshUserPrivateKey(credentialsId: 'shinvey-ssh', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USERNAME')]) {
                     // ssh通道
