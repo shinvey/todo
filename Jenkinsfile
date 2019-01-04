@@ -5,8 +5,7 @@ pipeline {
 //    }
     environment {
         OUTPUT_PATH = 'dist/' // 如果只是想上传dist目录下编译出来的文件，建议加上正斜杠（/）
-        REMOTE_PATH = '~/devops/nginx/www'
-        STAGING_SERVER = '192.168.1.112'
+        STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
     stages {
@@ -45,7 +44,7 @@ pipeline {
                     def NGINX_SERVER = [
                             master: [
                                     ip: env.PRODUCTION_SERVER,
-                                    remote_path: env.REMOTE_PATH
+                                    remote_path: '~/devops/nginx/www'
                             ],
                             release: [
                                     ip: env.STAGING_SERVER,
