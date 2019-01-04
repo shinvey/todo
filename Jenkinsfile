@@ -41,8 +41,8 @@ pipeline {
                 script {
                     // DOCs http://groovy-lang.org/syntax.html#_maps
                     def NGINX_SERVER = [
-                            master: env.STAGING_SERVER,
-                            release: env.PRODUCTION_SERVER
+                            master: env.PRODUCTION_SERVER,
+                            release: env.STAGING_SERVER
                     ]
                     env.NGINX_SERVER = NGINX_SERVER[env.BRANCH_NAME] || env.STAGING_SERVER
                 }
