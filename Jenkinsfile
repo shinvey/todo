@@ -54,7 +54,7 @@ pipeline {
                     ]
                     // @see http://mrhaki.blogspot.com/2009/09/groovy-goodness-matchers-for-regular.html
                     def matches = env.BRANCH_NAME =~ /^(\w+).*/
-                    def BRANCH_NAME = matches.find() ? matches[0][1] : 'Unknown'
+                    def BRANCH_NAME = matches ? matches[0][1] : 'Unknown'
                     if (NGINX_SERVER.containsKey(BRANCH_NAME)) {
                         def SERVER = NGINX_SERVER[BRANCH_NAME]
                         env.NGINX_SERVER = SERVER.ip
