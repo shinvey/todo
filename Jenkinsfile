@@ -24,7 +24,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'yarn --version'
+                echo 'No test suite'
             }
         }
         stage('deploy') {
