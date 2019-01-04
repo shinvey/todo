@@ -19,7 +19,6 @@ pipeline {
                 sh 'yarn config set registry http://registry.npm.taobao.org/'
                 sh 'yarn install'
                 sh 'yarn run build'
-                sh 'printenv'
             }
         }
         stage('test') {
@@ -40,12 +39,10 @@ pipeline {
                 REMOTE_PATH = '~/devops/nginx/www'
             }
             steps {
-                sh 'rsync --help'
                 withCredentials([sshUserPrivateKey(credentialsId: 'shinvey-ssh', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USERNAME')]) {
                     // ssh通道
                     sh "rsync -av -e 'ssh -i $SSH_KEY_FILE -o StrictHostKeyChecking=no' $OUTPUT_PATH $SSH_USERNAME@$NGINX_SERVER:$REMOTE_PATH"
                 }
-                sh 'printenv'
             }
         }
     }
