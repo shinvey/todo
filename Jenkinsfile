@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh 'printenv'
                 script {
-                    // DOCs http://groovy-lang.org/syntax.html#_maps
+                    // @see http://groovy-lang.org/syntax.html#_maps
                     def NGINX_SERVER = [
                             master: [
                                     ip: env.PRODUCTION_SERVER,
@@ -51,13 +51,15 @@ pipeline {
                                     remote_path: '~/devops/nginx/stg_www'
                             ]
                     ]
-                    if (NGINX_SERVER.containsKey(env.BRANCH_NAME)) {
-                        def SERVER = NGINX_SERVER[env.BRANCH_NAME]
+                    // @see http://mrhaki.blogspot.com/2009/09/groovy-goodness-matchers-for-regular.html
+                    def matches = env.BRANCH_NAME =~ /^(\w+).*/
+                    def BRANCH_NAME = matches.count ? matches[0][1] : 'Unknown'
+                    if (NGINX_SERVER.containsKey(BRANCH_NAME)) {
+                        def SERVER = NGINX_SERVER[BRANCH_NAME]
                         env.NGINX_SERVER = SERVER.ip
                         env.REMOTE_PATH = SERVER.remote_path
                     } else {
-                        env.NGINX_SERVER = SERVER.release.ip
-                        env.REMOTE_PATH = SERVER.release.remote_path
+                        throw new Exception('Unknown branch name, can not decide where to deploy!')
                     }
                 }
                 withCredentials([sshUserPrivateKey(credentialsId: 'shinvey-ssh', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USERNAME')]) {
