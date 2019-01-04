@@ -38,6 +38,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'printenv'
                 script {
                     // DOCs http://groovy-lang.org/syntax.html#_maps
                     def NGINX_SERVER = [
