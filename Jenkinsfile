@@ -44,7 +44,7 @@ pipeline {
                             master: env.PRODUCTION_SERVER,
                             release: env.STAGING_SERVER
                     ]
-                    env.NGINX_SERVER = NGINX_SERVER[env.BRANCH_NAME] || env.STAGING_SERVER
+                    env.NGINX_SERVER = NGINX_SERVER.containsKey(env.BRANCH_NAME) ? NGINX_SERVER[env.BRANCH_NAME] : env.STAGING_SERVER
                 }
                 withCredentials([sshUserPrivateKey(credentialsId: 'shinvey-ssh', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USERNAME')]) {
                     // ssh通道
