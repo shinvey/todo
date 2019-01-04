@@ -34,7 +34,7 @@ pipeline {
                 }
             }
             environment {
-                OUTPUT_PATH = 'dist/'
+                OUTPUT_PATH = 'dist/' // 如果只是想上传dist目录下编译出来的文件，建议加上正斜杠（/）
                 NGINX_SERVER = '192.168.1.111'
                 REMOTE_PATH = '~/devops/nginx/www'
             }
