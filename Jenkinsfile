@@ -8,10 +8,8 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
-    options {
-        // 如果管理员仅仅配置一个Gitlab Connection，此处配置可以省略
-        // gitLabConnection('Gitlab')
-    }
+    // 如果管理员仅仅配置一个Gitlab Connection，此处配置可以省略
+    // options { gitLabConnection('Gitlab') }
     triggers {
         // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
         // 请管理员确保至少配置了一个Gitlab Connection，本次测试在gitlab中创建了jenkins用户，作为此次默认连接
