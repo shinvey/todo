@@ -20,6 +20,7 @@ export default {
     return (
       <div id="footer" style={footerStyle}>
         <p>Hey Shinvey, Jenkins runs as your expected, you did it!</p>
+        <p>Hey Shinvey, Jenkins runs as your expected, you did it!</p>
         <p>Written by {this.author}</p>
       </div>
     )
