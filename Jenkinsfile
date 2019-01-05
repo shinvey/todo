@@ -19,6 +19,7 @@ pipeline {
                 secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF"
         )
     }
+
     stages {
         stage('build') {
             agent {
@@ -30,6 +31,9 @@ pipeline {
             }
 
             steps {
+                // updateGitlabCommitStatus use cases https://docs.gitlab.com/ce/api/pipelines.html
+                updateGitlabCommitStatus name: 'build', state: 'running'
+
                 sh 'yarn config set registry http://registry.npm.taobao.org/'
                 sh 'yarn install'
                 sh 'yarn run build'
@@ -37,7 +41,11 @@ pipeline {
         }
         stage('test') {
             steps {
+                updateGitlabCommitStatus name: 'test', state: 'running'
+
                 echo 'No test suite'
+
+                updateGitlabCommitStatus name: 'test', state: 'success'
             }
         }
         stage('deploy') {
@@ -48,6 +56,8 @@ pipeline {
                 }
             }
             steps {
+                updateGitlabCommitStatus name: 'deliver', state: 'running'
+
                 sh 'printenv'
                 // 确定即将部署环境配置，ip，remote path
                 script {
@@ -77,7 +87,21 @@ pipeline {
                     // ssh通道
                     sh "rsync -av -e 'ssh -i $SSH_KEY_FILE -o StrictHostKeyChecking=no' $OUTPUT_PATH $SSH_USERNAME@$NGINX_SERVER:$REMOTE_PATH"
                 }
+
+                updateGitlabCommitStatus name: 'deliver', state: 'success'
             }
+        }
+    }
+
+    post {
+        aborted {
+            updateGitlabCommitStatus name: 'build', state: 'canceled'
+        }
+        failure {
+            updateGitlabCommitStatus name: 'build', state: 'failed'
+        }
+        success {
+            updateGitlabCommitStatus name: 'build', state: 'success'
         }
     }
 }
