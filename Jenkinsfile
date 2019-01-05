@@ -8,9 +8,11 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
+    // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
+    // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
+    // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
     options { gitLabConnection('Gitlab') }
     triggers {
-        // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
         // 请管理员确保至少配置了一个Gitlab Connection，本次测试在gitlab中创建了jenkins用户，作为此次默认连接
         // jenkins连接gitlab授权配置参见 https://github.com/jenkinsci/gitlab-plugin#jenkins-to-gitlab-authentication
         gitlab(
