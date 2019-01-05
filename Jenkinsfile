@@ -8,8 +8,14 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
+//    options {
+//        gitLabConnection('your-gitlab-connection-name')
+//    }
     triggers {
         gitlab(
+                triggerOnPush: true,
+                triggerOnMergeRequest: true,
+                branchFilterType: 'All',
                 secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF"
         )
     }
