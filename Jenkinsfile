@@ -9,14 +9,20 @@ pipeline {
         PRODUCTION_SERVER = '192.168.1.111'
     }
     options {
-        gitLabConnection('Gitlab')
+        // 如果管理员仅仅配置一个Gitlab Connection，此处配置可以省略
+        // gitLabConnection('Gitlab')
     }
     triggers {
+        // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
+        // 请管理员确保至少配置了一个Gitlab Connection，本次测试在gitlab中创建了jenkins用户，作为此次默认连接
+        // jenkins连接gitlab授权配置参见 https://github.com/jenkinsci/gitlab-plugin#jenkins-to-gitlab-authentication
         gitlab(
                 triggerOnPush: true,
                 triggerOnMergeRequest: true,
                 branchFilterType: 'All',
-                secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF"
+                // 请在Gitlab某个repo配置好web hook, 并使用此处定义的secret token， 参见 https://github.com/jenkinsci/gitlab-plugin#job-trigger-configuration
+                // 然后将管理员创建专用于jenkins连接gitlab的账户（比如本次测试我在gitlab中创建了jenkins用户）添加到gitlab repo的members中，权限为Developer
+                secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF" // secret token 可以自定义
         )
     }
 
