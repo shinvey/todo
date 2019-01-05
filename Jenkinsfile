@@ -8,9 +8,9 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
-//    options {
-//        gitLabConnection('Gitlab')
-//    }
+    options {
+        gitLabConnection('Gitlab')
+    }
     triggers {
         gitlab(
                 triggerOnPush: true,
