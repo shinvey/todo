@@ -8,6 +8,11 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
     }
+    triggers {
+        gitlab(
+                secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF"
+        )
+    }
     stages {
         stage('build') {
             agent {
