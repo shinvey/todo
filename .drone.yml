@@ -38,16 +38,31 @@ pipeline:
       - node_modules
       - yarn.lock
 
-  deploy:
+  deploy_to_staging:
     image: drillster/drone-rsync
     hosts: [
       "self.shinvey.com"
     ]
     source: ./dist/
-    target: ~/devops/nginx/www/
+    target: ~/devops/nginx/stg_www
     secrets: [
       rsync_user,
       rsync_key
     ]
+    when:
+      branch: release/*
+  deploy_to_production:
+    image: drillster/drone-rsync
+    hosts: [
+      "self.shinvey.com"
+    ]
+    source: ./dist/
+    target: ~/devops/nginx/www
+    secrets: [
+      rsync_user,
+      rsync_key
+    ]
+    when:
+      branch: master
 
-branches: release/1.0
+branches: [ master, release/* ]
