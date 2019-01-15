@@ -24,15 +24,14 @@ pipeline {
                 secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF" // secret token 可以自定义，并在配置gitlab里project设置web hook时使用
         )
     }
-    tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
     stages {
         stage('SonarQube analysis') {
             steps {
                 // requires SonarQube Scanner 2.8+
-                // def scannerHome = tool 'SonarQube Scanner 2.8';
-                withSonarQubeEnv {
-                    sh "sonar-scanner"
+                def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
