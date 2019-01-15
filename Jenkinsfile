@@ -7,6 +7,8 @@ pipeline {
         OUTPUT_PATH = 'dist/' // 如果只是想上传dist目录下编译出来的文件，建议加上正斜杠（/）
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
+
+        SONAR_SCANNER_HOME = tool 'SonarQube'
     }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
@@ -28,13 +30,12 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
-                // requires SonarQube Scanner 2.8+
-//                def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-//                withSonarQubeEnv('SonarQube') {
-//                    sh "${scannerHome}/bin/sonar-scanner"
+//                script {
+//                    // requires SonarQube Scanner 2.8+
+//                    def SONAR_SCANNER_HOME = tool 'SonarQube'
 //                }
                 withSonarQubeEnv('SonarQube') {
-                    sh "sonar-scanner"
+                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
         }
