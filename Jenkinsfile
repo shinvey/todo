@@ -10,6 +10,9 @@ pipeline {
 
         SONAR_SCANNER_HOME = tool 'SonarQube3.3'
     }
+    tools {
+        jdk 'JDK9'
+    }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
     // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
@@ -30,10 +33,7 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
-//                script {
-//                    // requires SonarQube Scanner 2.8+
-//                    def SONAR_SCANNER_HOME = tool 'SonarQube'
-//                }
+                echo "JDK: $JAVA_HOME"
                 withSonarQubeEnv('SonarQube') {
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 }
