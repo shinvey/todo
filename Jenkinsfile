@@ -21,11 +21,18 @@ pipeline {
                 branchFilterType: 'All',
                 // 请在Gitlab某个repo配置好web hook, 并使用此处定义的secret token， 参见 https://github.com/jenkinsci/gitlab-plugin#job-trigger-configuration
                 // 然后将管理员创建专用于jenkins连接gitlab的账户（比如本次测试我在gitlab中创建了jenkins用户）添加到gitlab repo的members中，权限为Developer
-                secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF" // secret token 可以自定义
+                secretToken: "abcdefghijklmnopqrstuvwxyz0123456789ABCDEF" // secret token 可以自定义，并在配置gitlab里project设置web hook时使用
         )
     }
 
     stages {
+        stage('SonarQube analysis') {
+            // requires SonarQube Scanner 2.8+
+            def scannerHome = tool 'SonarQube Scanner 2.8';
+            withSonarQubeEnv('SonarQube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
         stage('build') {
             agent {
                 docker {
