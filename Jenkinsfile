@@ -8,7 +8,7 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
 
-        SONAR_SCANNER_HOME = tool 'SonarQube'
+        SONAR_SCANNER_HOME = tool 'SonarQube3.3'
     }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
