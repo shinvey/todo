@@ -8,6 +8,8 @@ pipeline {
         STAGING_SERVER = '192.168.1.111'
         PRODUCTION_SERVER = '192.168.1.111'
 
+        // Global Tool Configuration > SonarQube Scanner 中配置一个scanner并命名为SonarQube3.3，勾选自动安装
+        // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
         SONAR_SCANNER_HOME = tool 'SonarQube3.3'
     }
 //    tools {
