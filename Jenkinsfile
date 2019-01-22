@@ -36,8 +36,11 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
-                nodejs('NodeJS11') {
-                    // some block
+                // nodejs('NodeJS11') {
+                //     // some block
+                // }
+                nodejs(nodeJSInstallationName: 'NodeJS11') {
+                    // sh 'npm config ls'
                     sh "npm --version"
                     sh "yarn --version"
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
