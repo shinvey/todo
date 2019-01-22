@@ -1,8 +1,8 @@
 pipeline {
     agent any
-//    parameters {
-//        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
-//    }
+    // parameters {
+    //     string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    // }
     environment {
         OUTPUT_PATH = 'dist/' // 如果只是想上传dist目录下编译出来的文件，建议加上正斜杠（/）
         STAGING_SERVER = '192.168.1.111'
@@ -12,9 +12,10 @@ pipeline {
         // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
         SONAR_SCANNER_HOME = tool 'SonarQube3.3'
     }
-//    tools {
-//        jdk 'JDK9'
-//    }
+    // tools {
+    //     jdk 'JDK9'
+    //     nodejs 'NodeJS11' // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
+    // }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
     // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
@@ -34,18 +35,15 @@ pipeline {
 
     stages {
         stage('SonarQube analysis') {
-            agent {
-                docker {
-                    image 'kkarczmarczyk/node-yarn'
-                    // Docs https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/Controlling-your-build-environment
-                    reuseNode true
-                }
-            }
-
             steps {
-                withSonarQubeEnv('SonarQube') {
+                nodejs('NodeJS11') {
+                    // some block
+                    sh "npm --version"
+                    sh "yarn --version"
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 }
+                // withSonarQubeEnv('SonarQube') {
+                // }
             }
         }
         stage('build') {
