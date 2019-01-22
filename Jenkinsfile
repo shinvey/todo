@@ -10,12 +10,14 @@ pipeline {
 
         // Global Tool Configuration > SonarQube Scanner 中配置一个scanner并命名为SonarQube3.3，勾选自动安装
         // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
-        SONAR_SCANNER_HOME = tool 'SonarQube3.3'
+        // SONAR_SCANNER_HOME = tool 'SonarQube3.3'
+        // NODEJS_HOME = tool 'NodeJS11'
     }
-    // tools {
-    //     jdk 'JDK9'
-    //     nodejs 'NodeJS11' // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
-    // }
+    tools {
+        // jdk 'JDK9'
+        sonar_scanner 'SonarQube3.3'
+        nodejs 'NodeJS11' // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
+    }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
     // 与gitlab集成，Jenkin的gitlab插件 https://github.com/jenkinsci/gitlab-plugin
@@ -36,15 +38,14 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
             steps {
+                sh "npm --version"
+                sh "yarn --version"
+                // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
+                sh "sonar-scanner"
                 // nodejs('NodeJS11') {
-                //     // some block
                 // }
-                nodejs(nodeJSInstallationName: 'NodeJS11') {
-                    // sh 'npm config ls'
-                    sh "npm --version"
-                    sh "yarn --version"
-                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
-                }
+                // nodejs(nodeJSInstallationName: 'NodeJS11') {
+                // }
                 // withSonarQubeEnv('SonarQube') {
                 // }
             }
