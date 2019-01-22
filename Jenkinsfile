@@ -13,9 +13,6 @@ pipeline {
         SONAR_SCANNER_HOME = tool 'SonarQube3.3'
         // NODEJS_HOME = tool 'NodeJS11'
     }
-    script {
-        env.PATH="${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
-    }
     tools {
         // 通过Snippet Generator > steps > Sample Step > tool 或tool type字段 @see https://jenkins.shinvey.com/pipeline-syntax/
         // tool name 是从Global Tool Configuration中工具配置好后使用的name名称 @see https://jenkins.shinvey.com/configureTools/
@@ -42,6 +39,13 @@ pipeline {
     }
 
     stages {
+        stage('Install tools') {
+            steps {
+                script {
+                    env.PATH="${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
+                }
+            }
+        }
         stage('SonarQube analysis') {
             steps {
                 sh "npm --version"
