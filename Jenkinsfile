@@ -14,8 +14,11 @@ pipeline {
         // NODEJS_HOME = tool 'NodeJS11'
     }
     tools {
+        // 通过Snippet Generator > steps > Sample Step > tool 或tool type字段 @see https://jenkins.shinvey.com/pipeline-syntax/
+        // tool name 是从Global Tool Configuration中工具配置好后使用的name名称 @see https://jenkins.shinvey.com/configureTools/
+        // 语法格式为 <tool type> <tool name>
         // jdk 'JDK9'
-        sonar_scanner 'SonarQube3.3'
+        hudson.plugins.sonar.SonarRunnerInstallation 'SonarQube3.3'
         nodejs 'NodeJS11' // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
     }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
