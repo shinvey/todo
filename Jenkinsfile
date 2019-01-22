@@ -10,15 +10,18 @@ pipeline {
 
         // Global Tool Configuration > SonarQube Scanner 中配置一个scanner并命名为SonarQube3.3，勾选自动安装
         // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
-        // SONAR_SCANNER_HOME = tool 'SonarQube3.3'
+        SONAR_SCANNER_HOME = tool 'SonarQube3.3'
         // NODEJS_HOME = tool 'NodeJS11'
+    }
+    script {
+        env.PATH="${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
     }
     tools {
         // 通过Snippet Generator > steps > Sample Step > tool 或tool type字段 @see https://jenkins.shinvey.com/pipeline-syntax/
         // tool name 是从Global Tool Configuration中工具配置好后使用的name名称 @see https://jenkins.shinvey.com/configureTools/
         // 语法格式为 <tool type> <tool name>
         // jdk 'JDK9'
-        hudson.plugins.sonar.SonarRunnerInstallation "SonarQube3.3"
+        // hudson.plugins.sonar.SonarRunnerInstallation "SonarQube3.3"
         nodejs "NodeJS11" // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
     }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
