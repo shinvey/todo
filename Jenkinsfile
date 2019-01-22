@@ -34,11 +34,16 @@ pipeline {
 
     stages {
         stage('SonarQube analysis') {
+            agent {
+                docker {
+                    image 'kkarczmarczyk/node-yarn'
+                    // Docs https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/Controlling-your-build-environment
+                    reuseNode true
+                }
+            }
+
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    echo "JDK: $JAVA_HOME"
-                    sh "java -version"
-                    echo "sonar scanner: $SONAR_SCANNER_HOME"
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
