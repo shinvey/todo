@@ -11,7 +11,7 @@ pipeline {
         // Global Tool Configuration > SonarQube Scanner 中配置一个scanner并命名为SonarQube3.3，勾选自动安装
         // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
         SONAR_SCANNER_HOME = tool 'SonarQube3.3'
-        NODEJS_HOME = tool 'NodeJS11'
+        NODEJS_HOME = tool 'NodeJS10'
     }
     // tools {
         // 通过Snippet Generator > steps > Sample Step > tool 或tool type字段 @see https://jenkins.shinvey.com/pipeline-syntax/
