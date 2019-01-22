@@ -48,6 +48,7 @@ pipeline {
                 script {
                     env.PATH="${env.NODEJS_HOME}/bin:${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
                 }
+                echo "${PATH}"
                 sh "ls -ls ${env.NODEJS_HOME}/bin"
                 sh "node -V"
                 sh "npm --version"
