@@ -39,15 +39,15 @@ pipeline {
     }
 
     stages {
-        stage('Install tools') {
+        // stage('Install tools') {
+        //     steps {
+        //     }
+        // }
+        stage('SonarQube analysis') {
             steps {
                 script {
                     env.PATH="${env.NODEJS_HOME}/bin:${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
                 }
-            }
-        }
-        stage('SonarQube analysis') {
-            steps {
                 sh "npm --version"
                 sh "yarn --version"
                 // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
