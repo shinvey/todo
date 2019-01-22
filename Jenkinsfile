@@ -18,8 +18,8 @@ pipeline {
         // tool name 是从Global Tool Configuration中工具配置好后使用的name名称 @see https://jenkins.shinvey.com/configureTools/
         // 语法格式为 <tool type> <tool name>
         // jdk 'JDK9'
-        hudson.plugins.sonar.SonarRunnerInstallation 'SonarQube3.3'
-        nodejs 'NodeJS11' // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
+        hudson.plugins.sonar.SonarRunnerInstallation "SonarQube3.3"
+        nodejs "NodeJS11" // https://medium.com/@gustavo.guss/jenkins-starting-with-pipeline-doing-a-node-js-test-72c6057b67d4
     }
     // 向jenkins管理员请求使用gitlab plugin来与gitlab集成
     // 并获得GitLab connection name和对应连接gitlab所使用的gitlab user name(无需密码)
