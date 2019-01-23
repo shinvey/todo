@@ -50,9 +50,9 @@ pipeline {
                 }
                 echo "${PATH}"
                 sh "ls -ls ${env.NODEJS_HOME}/bin"
-                sh "node -V"
+                sh "node -v"
                 sh "npm --version"
-                sh "yarn --version"
+                // sh "yarn --version"
                 // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 sh "sonar-scanner"
                 // nodejs('NodeJS11') {
