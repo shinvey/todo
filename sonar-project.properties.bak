@@ -1,4 +1,4 @@
 # sonar.projectKey=todo
 # sonar.projectName=My project
 # sonar.projectVersion=1.0
-sonar.sources=src
+# sonar.sources=src

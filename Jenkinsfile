@@ -58,13 +58,16 @@ pipeline {
                     // Configure System > SonarQube servers > add SonarQube
                     // 局部使用场景，可以采用命令行参数、sonar-project.properties配置文件等
                     withSonarQubeEnv('SonarQube') {
+                        // sonar scanner 参数说明 @see https://docs.sonarqube.org/latest/analysis/analysis-parameters/
+
                         // 使用jenkins Global Tool Configuration 中配置好的工具
+                        // sonar-project.properties 文件中配置好所需参数
                         // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
-                        
+
                         // 使用npm包 @see https://github.com/bellingard/sonar-scanner-npm
                         // 全局安装npm包sonarqube-scanner
                         // 从package.json读取部分参数实现逻辑 @see https://github.com/bellingard/sonar-scanner-npm/blob/master/dist/sonarqube-scanner-params.js
-                        sh "sonar-scanner"
+                        sh "sonar-scanner -Dsonar.sources=src"
                     }
                 }
                 // nodejs(nodeJSInstallationName: 'NodeJS11') {
