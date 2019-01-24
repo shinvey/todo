@@ -56,10 +56,10 @@ pipeline {
                 nodejs('NodeJS10') {
                     // 配置全局SonarQube Server
                     // Configure System > SonarQube servers > add SonarQube
-                    // 局部使用场景，可以采用命令行参数、sonar-project.properties配置文件等
+                    // 配置好后，使用withSonarQubeEnv会自动注入服务器url和登录信息
+                    // 单独项目使用场景，可以采用命令行参数、sonar-project.properties配置文件等
+                    // sonar scanner 参数说明 @see https://docs.sonarqube.org/latest/analysis/analysis-parameters/
                     withSonarQubeEnv('SonarQube') {
-                        // sonar scanner 参数说明 @see https://docs.sonarqube.org/latest/analysis/analysis-parameters/
-
                         // 使用jenkins Global Tool Configuration 中配置好的工具
                         // sonar-project.properties 文件中配置好所需参数
                         // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
