@@ -10,7 +10,8 @@ pipeline {
 
         // Global Tool Configuration > SonarQube Scanner 中配置一个scanner并命名为SonarQube3.3，勾选自动安装
         // pipeline tool指令会引用命名为SonarQube3.3的scanner，并自动安装已设置的版本
-        SONAR_SCANNER_HOME = tool 'SonarQube3.3'
+        // 前端代码扫描工具SonarJS文档 @see https://github.com/SonarSource/SonarJS
+        // SONAR_SCANNER_HOME = tool 'SonarQube3.3'
         // NODEJS_HOME = tool 'NodeJS10'
     }
     // tools {
@@ -50,11 +51,20 @@ pipeline {
                 //     env.PATH="${env.NODEJS_HOME}/bin:${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
                 // }
                 // sh "yarn --version"
-                // sh "sonar-scanner"
+                
+                // Jenkins NodeJS Plugin @see https://wiki.jenkins.io/display/JENKINS/NodeJS+Plugin
                 nodejs('NodeJS10') {
+                    // 配置全局SonarQube Server
+                    // Configure System > SonarQube servers > add SonarQube
+                    // 局部使用场景，可以采用命令行参数、sonar-project.properties配置文件等
                     withSonarQubeEnv('SonarQube') {
-                        sh "node -v"
-                        sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
+                        // 使用jenkins Global Tool Configuration 中配置好的工具
+                        // sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
+                        
+                        // 使用npm包 @see https://github.com/bellingard/sonar-scanner-npm
+                        // 全局安装npm包sonarqube-scanner
+                        // 从package.json读取部分参数实现逻辑 @see https://github.com/bellingard/sonar-scanner-npm/blob/master/dist/sonarqube-scanner-params.js
+                        sh "sonar-scanner"
                     }
                 }
                 // nodejs(nodeJSInstallationName: 'NodeJS11') {
