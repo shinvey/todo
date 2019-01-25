@@ -13,7 +13,8 @@ pipeline:
     commands:
       - export https_proxy=http://192.168.1.110:1080
       - export http_proxy=http://192.168.1.110:1080
-      - printenv
+      - export SONAR_HOST_URL
+      - export SONAR_AUTH_TOKEN
       - sonar-scanner -Dsonar.sources=src
 
   restore_cache:
