@@ -15,6 +15,7 @@ pipeline:
       - export http_proxy=http://192.168.1.110:1080
       - export SONAR_HOST_URL
       - export SONAR_AUTH_TOKEN
+      - export SONAR_MAVEN_GOAL=sonar:sonar
       - printenv
       - sonar-scanner -Dsonar.sources=src
 
