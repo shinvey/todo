@@ -3,6 +3,10 @@
 # sftp plugin 文档不全，但可以查看入参变量 https://github.com/appleboy/drone-sftp-cache/blob/master/main.go
 
 pipeline:
+  sonarqube_analysis:
+    image: shinvey/sonar-scanner:alpine
+    sources: src
+
   restore_cache:
     image: appleboy/drone-sftp-cache
     secrets: [
