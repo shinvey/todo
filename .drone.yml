@@ -5,15 +5,16 @@
 pipeline:
   sonarqube_analysis:
     image: shinvey/sonar-scanner:alpine
-    sources: src
     secrets: [
-      sonar_host_url,
-      sonar_auth_token
+        sonar_host_url,
+        sonar_auth_token
     ]
+    sources: src
     commands:
       - export https_proxy=http://192.168.1.110:1080
       - export http_proxy=http://192.168.1.110:1080
-      - sonar-scanner -Dsonar.sources=${PLUGIN_SOURCES:-.}
+      - printenv
+      - sonar-scanner -Dsonar.sources=src
 
   restore_cache:
     image: appleboy/drone-sftp-cache
