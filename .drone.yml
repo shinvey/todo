@@ -4,7 +4,7 @@
 
 pipeline:
   sonarqube_analysis:
-    image: shinvey/sonar-scanner:alpine
+    image: shinvey/sonar-scanner
     secrets: [
         sonar_host_url,
         sonar_auth_token
