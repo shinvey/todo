@@ -67,6 +67,7 @@ pipeline {
                         // 使用npm包 @see https://github.com/bellingard/sonar-scanner-npm
                         // 全局安装npm包sonarqube-scanner
                         // 从package.json读取部分参数实现逻辑 @see https://github.com/bellingard/sonar-scanner-npm/blob/master/dist/sonarqube-scanner-params.js
+                        sh "printenv"
                         sh "sonar-scanner -Dsonar.sources=src"
                     }
                 }
