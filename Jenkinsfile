@@ -51,7 +51,7 @@ pipeline {
                 //     env.PATH="${env.NODEJS_HOME}/bin:${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
                 // }
                 // sh "yarn --version"
-                
+
                 // Jenkins NodeJS Plugin @see https://wiki.jenkins.io/display/JENKINS/NodeJS+Plugin
                 nodejs('NodeJS10') {
                     // 配置全局SonarQube Server
@@ -139,6 +139,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'shinvey-ssh', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: '', usernameVariable: 'SSH_USERNAME')]) {
                     // ssh通道
                     sh "rsync -av -e 'ssh -i $SSH_KEY_FILE -o StrictHostKeyChecking=no' $OUTPUT_PATH $SSH_USERNAME@$NGINX_SERVER:$REMOTE_PATH"
+                    // 删除60天前的老文件 https://unix.stackexchange.com/questions/194863/delete-files-older-than-x-days
+                    // sh "find /path/to/directory/ -mindepth 1 -mtime +60 -delete"
                 }
 
                 updateGitlabCommitStatus name: 'deliver', state: 'success'
